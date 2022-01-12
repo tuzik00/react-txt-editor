@@ -1,0 +1,19 @@
+{
+  "name": "react-text-editor",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tuzik00/react-text-editor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tuzik00/react-text-editor/issues"
+  },
+  "homepage": "https://github.com/tuzik00/react-text-editor#readme"
+}
