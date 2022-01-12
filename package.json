@@ -18,7 +18,7 @@
     "tsc": "tsc --noEmit",
     "prepare": "husky install",
     "deploy": "run-s deploy:*",
-    "build:clean": "rimraf build && rimraf storybook-static",
+    "deploy:clean": "rimraf build && rimraf storybook-static",
     "deploy:test": "yarn lint && yarn tsc",
     "deploy:storybook": "yarn build && gh-pages -d storybook-static",
     "deploy:app": "ttsc --incremental && yarn publish"
