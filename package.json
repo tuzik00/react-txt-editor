@@ -1,5 +1,5 @@
 {
-  "name": "react-text-editor",
+  "name": "react-txt-editor",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tuzik00/react-text-editor.git"
+    "url": "git+https://github.com/tuzik00/react-txt-editor.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tuzik00/react-text-editor/issues"
+    "url": "https://github.com/tuzik00/react-txt-editor/issues"
   },
-  "homepage": "https://github.com/tuzik00/react-text-editor#readme"
+  "homepage": "https://github.com/tuzik00/react-txt-editor#readme"
 }
