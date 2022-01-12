@@ -31,7 +31,7 @@ const SetupElement: FC<SetupElementPropsType> = ({
           onCreate(val);
         }}
       >
-        {'Создать'}
+        {'Create'}
       </Button>
     </div>
   );

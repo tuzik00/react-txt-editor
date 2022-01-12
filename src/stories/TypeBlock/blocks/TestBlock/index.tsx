@@ -8,7 +8,7 @@ import type { BlockConfigType } from '@/components/BlockToolbar/hooks/useBlockTo
 const BlockName = 'TestBlock';
 
 const module: BlockConfigType = {
-  label: 'Тестовый блок',
+  label: 'Test block',
   isEditable: true,
   toolbarIcon: <AddBusinessIcon />,
   setupElement: ({ onCreate, data }) => (
