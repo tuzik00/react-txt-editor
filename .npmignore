@@ -1,4 +1,6 @@
-.husky
-.storybook
-storybook-static
+.idea/
+.vscode/
+.husky/
+.storybook/
+storybook-static/
 yarn-error.log

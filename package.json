@@ -16,11 +16,12 @@
     "build": "ttsc --incremental",
     "lint": "eslint \"./src/**/*.{ts,tsx}\"",
     "tsc": "tsc --noEmit",
+    "prepare": "husky install",
     "deploy": "run-s deploy:*",
+    "build:clean": "rimraf build && rimraf storybook-static",
     "deploy:test": "yarn lint && yarn tsc",
     "deploy:storybook": "yarn build && gh-pages -d storybook-static",
-    "deploy:app": "ttsc --incremental && yarn publish",
-    "prepare": "husky install"
+    "deploy:app": "ttsc --incremental && yarn publish"
   },
   "lint-staged": {
     "*.(js|jsx|ts|tsx)": "eslint"
@@ -89,6 +90,7 @@
     "lint-staged": "^11.2.6",
     "npm-run-all": "^4.1.5",
     "react-app-rewired": "^2.1.9",
+    "rimraf": "^3.0.2",
     "ttypescript": "^1.5.13",
     "typescript": "^4.5.4",
     "typescript-transform-paths": "^3.3.1",
