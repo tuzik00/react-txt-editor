@@ -1,15 +1,25 @@
 {
   "name": "react-txt-editor",
-  "version": "1.0.2",
+  "description": "React text editor with output state in markdown",
+  "version": "1.0.3",
   "license": "MIT",
-  "main": "./src",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tuzik00/react-txt-editor.git"
+  },
+  "homepage": "https://github.com/tuzik00/react-txt-editor#readme",
   "scripts": {
-    "start": "start-storybook -p 6006 -s public",
-    "storybook:build": "build-storybook -o storybook-static",
-    "storybook:deploy": "gh-pages -d storybook-static",
-    "deploy": "run-s storybook:*",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -o storybook-static",
+    "build": "ttsc --incremental",
     "lint": "eslint \"./src/**/*.{ts,tsx}\"",
     "tsc": "tsc --noEmit",
+    "deploy": "run-s deploy:*",
+    "deploy:test": "yarn lint && yarn tsc",
+    "deploy:storybook": "yarn build && gh-pages -d storybook-static",
+    "deploy:app": "ttsc --incremental && yarn publish",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -43,6 +53,8 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.7",
     "@storybook/addon-actions": "^6.4.9",
     "@storybook/addon-essentials": "^6.4.9",
     "@storybook/addon-links": "^6.4.9",
@@ -62,6 +74,7 @@
     "@types/remarkable": "^2.0.3",
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
+    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^8.5.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -76,7 +89,9 @@
     "lint-staged": "^11.2.6",
     "npm-run-all": "^4.1.5",
     "react-app-rewired": "^2.1.9",
+    "ttypescript": "^1.5.13",
     "typescript": "^4.5.4",
+    "typescript-transform-paths": "^3.3.1",
     "webpack": "^5.65.0"
   }
 }
