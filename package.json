@@ -20,7 +20,7 @@
     "deploy": "run-s deploy:*",
     "deploy:clean": "rimraf build && rimraf storybook-static",
     "deploy:test": "yarn lint && yarn tsc",
-    "deploy:storybook": "yarn build && gh-pages -d storybook-static",
+    "deploy:storybook": "yarn build-storybook && gh-pages -d storybook-static",
     "deploy:app": "ttsc --incremental && yarn publish"
   },
   "lint-staged": {
