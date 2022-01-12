@@ -1,0 +1,61 @@
+{
+  "extends": [
+    "airbnb",
+    "airbnb-base",
+    "airbnb-typescript/base",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "sourceType": "module"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": "tsconfig.json"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.stories.*"
+      ],
+      "rules": {
+        "import/no-anonymous-default-export": "off",
+        "import/no-extraneous-dependencies": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    ".eslintrc.js"
+  ],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "import/extensions": ["error", "ignorePackages", {"ts": "never", "tsx": "never"}],
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/no-unsafe-member-access": ["error"],
+    "react/jsx-no-useless-fragment": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "react/jsx-curly-brace-presence": ["error", { "props": "always", "children": "always" }],
+    "react/jsx-indent": ["error", 2],
+    "react/jsx-indent-props": ["error", 2],
+    "react/jsx-filename-extension": ["warn", {"extensions": [".tsx"]}],
+    "react/function-component-definition": [2, {"namedComponents": "arrow-function"}],
+    "react/jsx-sort-props": ["error", {
+      "callbacksLast": true,
+        "shorthandFirst": false,
+        "shorthandLast": false,
+        "ignoreCase": false,
+        "noSortAlphabetically": true,
+        "reservedFirst": true
+      }
+    ]
+  }
+}
