@@ -13,8 +13,8 @@ const TypeBlock: FC = () => {
   const [state, setState] = useState<EditorStateType>([]);
 
   return (
-    <div style={{ position: 'relative', padding: '150px' }}>
-      <div>
+    <Box sx={{ display: 'flex' }}>
+      <Box sx={{ width: '100%' }}>
         <div>
           <Editor
             state={initState}
@@ -24,8 +24,15 @@ const TypeBlock: FC = () => {
             }}
           />
         </div>
-      </div>
-    </div>
+      </Box>
+      <Box
+        component={'pre'}
+        style={{ whiteSpace: 'pre-wrap' }}
+        sx={{ width: '100%' }}
+      >
+        {`${JSON.stringify(state as string, null, 2)}`}
+      </Box>
+    </Box>
   );
 };
 
