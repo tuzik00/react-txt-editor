@@ -3,12 +3,12 @@ import {
   RawDraftEntity,
 } from 'draft-js';
 
+import { mdToDraft } from '@/utils/mdConverter';
+
 import {
   CONTENT_BLOCK_NAME,
   createEmptyBlock,
 } from './constants';
-
-import { mdToDraft } from '@/utils/mdConverter';
 
 import type { BlocksToDraftType } from './types';
 

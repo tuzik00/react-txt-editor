@@ -14,6 +14,7 @@ import { ModalProvider } from '@/components/Modal';
 import { StateTypes } from '@/constants/StateTypes';
 
 import validator from '@/utils/validator';
+import getMdString from '@/utils/getMdString';
 
 import {
   blocksToDraft,
@@ -22,7 +23,6 @@ import {
 } from '@/utils/blocksConverter';
 
 import type { AppPropsType } from './types';
-import { getMdString } from '@/utils/getMdString';
 
 const App: FC<AppPropsType> = ({
   state = '',

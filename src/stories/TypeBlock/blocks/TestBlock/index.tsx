@@ -1,9 +1,9 @@
 import React from 'react';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import type { BlockConfigType } from '@/components/BlockToolbar/hooks/useBlockToolbar';
+
 import SetupElement from './SetupElement';
 import Element from './Element';
-
-import type { BlockConfigType } from '@/components/BlockToolbar/hooks/useBlockToolbar';
 
 const BlockName = 'TestBlock';
 
