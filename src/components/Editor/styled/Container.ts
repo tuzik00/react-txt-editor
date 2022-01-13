@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+const Default = css`
+  position: relative;
+`;
+
 const Aside = ({
   isShowAside = true,
 }: { isShowAside?: boolean }) => {
@@ -9,11 +13,11 @@ const Aside = ({
   }
 
   return css`
-    position: relative;
     padding-left: 60px;
   `;
 };
 
 export default styled('div')([
   Aside,
+  Default,
 ]);

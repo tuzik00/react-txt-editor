@@ -31,7 +31,8 @@ export const usePosition: InlineToolbarUsePositionType = (
     }
 
     const toolbarNode = toolbarRef.current;
-    const parentNode = toolbarNode?.closest(`.${EDITOR_ROOT_CLASSNAME}`) as HTMLElement;
+    const parentNode = toolbarNode?.parentNode as HTMLElement;
+    const editorRootNode = toolbarNode?.closest(`.${EDITOR_ROOT_CLASSNAME}`) as HTMLElement;
 
     if (!toolbarNode || !parentNode) {
       return;
@@ -39,12 +40,13 @@ export const usePosition: InlineToolbarUsePositionType = (
 
     const selectionBoundary = getVisibleSelectionRect(window);
     const parentBoundary = parentNode.getBoundingClientRect();
+    const rootBoundary = editorRootNode.getBoundingClientRect();
 
     const left = () => {
       const realLeft = (
         selectionBoundary.left
         + selectionBoundary.width / 2
-        - parentBoundary.left
+        - rootBoundary.left
         - toolbarNode.offsetWidth / 2
       );
 
@@ -65,7 +67,6 @@ export const usePosition: InlineToolbarUsePositionType = (
       + (
         selectionBoundary.top
         - parentBoundary.top
-        - 18
       )
     );
 
