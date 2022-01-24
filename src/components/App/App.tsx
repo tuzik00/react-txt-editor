@@ -98,10 +98,6 @@ const App: FC<AppPropsType> = ({
     ],
   );
 
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
   return (
     <ModalProvider>
       <GlobalStyles />

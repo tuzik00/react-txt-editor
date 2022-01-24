@@ -3,6 +3,6 @@ export { default as draftToBlocks } from './draftToBlocks';
 
 export * from './constants';
 
-export {
+export type {
   BlockType,
 } from './types';
