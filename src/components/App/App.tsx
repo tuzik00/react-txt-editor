@@ -81,13 +81,11 @@ const App: FC<AppPropsType> = ({
 
         return blocksToDraft(validateState);
       } catch (e) {
-        console.warn(e);
-
         return blocksToDraft([
           {
             type: CONTENT_BLOCK_NAME,
             data: {
-              content: 'State error',
+              content: 'error content state',
             },
           },
         ]);
