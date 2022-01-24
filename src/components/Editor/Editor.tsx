@@ -71,6 +71,7 @@ import type { EditorPropsType } from './types';
 const Editor: FC<EditorPropsType> = ({
   isActive = true,
   isAutoFocus = false,
+  placeholder = '',
   state = { blocks: [], entityMap: {} },
   stateType = StateTypes.MARKDOWN,
   styleBlockRenderMap = {},
@@ -420,7 +421,7 @@ const Editor: FC<EditorPropsType> = ({
         <PlaceholderStyled isShow={!hasBlock}>
           <DraftEditor
             ref={editorRef}
-            placeholder={'Начните вводить текст'}
+            placeholder={placeholder}
             readOnly={isReadOnly}
             editorState={editorState}
             blockRendererFn={blockRenderer}

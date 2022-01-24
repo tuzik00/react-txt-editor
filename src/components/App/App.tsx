@@ -30,6 +30,7 @@ const App: FC<AppPropsType> = ({
   onChange = () => {},
   isActive,
   isAutoFocus,
+  placeholder,
   renderInlineToolbar,
   renderBlockToolbar,
   inlineToolbarAllowTypes,
@@ -105,6 +106,7 @@ const App: FC<AppPropsType> = ({
         isAutoFocus={isAutoFocus}
         state={editorState}
         stateType={stateType}
+        placeholder={placeholder}
         inlineToolbarAllowTypes={inlineToolbarAllowTypes}
         renderBlockToolbar={renderBlockToolbar}
         renderInlineToolbar={renderInlineToolbar}
