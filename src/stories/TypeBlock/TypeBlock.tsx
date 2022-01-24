@@ -17,6 +17,7 @@ const TypeBlock: FC = () => {
       <Box sx={{ width: '100%' }}>
         <div>
           <Editor
+            isAutoFocus
             state={initState}
             blockRenderMap={blockRenderMap}
             onChange={(data) => {

@@ -70,6 +70,7 @@ import type { EditorPropsType } from './types';
 
 const Editor: FC<EditorPropsType> = ({
   isActive = true,
+  isAutoFocus = false,
   state = { blocks: [], entityMap: {} },
   stateType = StateTypes.MARKDOWN,
   styleBlockRenderMap = {},
@@ -399,9 +400,15 @@ const Editor: FC<EditorPropsType> = ({
 
   useEffect(
     () => {
+      if (!isAutoFocus) {
+        return;
+      }
+
       editorRef.current?.focus();
     },
-    [],
+    [
+      isAutoFocus,
+    ],
   );
 
   return (

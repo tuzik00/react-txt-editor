@@ -29,6 +29,7 @@ const App: FC<AppPropsType> = ({
   stateType = StateTypes.BLOCK,
   onChange = () => {},
   isActive,
+  isAutoFocus,
   renderInlineToolbar,
   renderBlockToolbar,
   inlineToolbarAllowTypes,
@@ -103,6 +104,7 @@ const App: FC<AppPropsType> = ({
       <GlobalStyles />
       <Editor
         isActive={isActive}
+        isAutoFocus={isAutoFocus}
         state={editorState}
         stateType={stateType}
         inlineToolbarAllowTypes={inlineToolbarAllowTypes}

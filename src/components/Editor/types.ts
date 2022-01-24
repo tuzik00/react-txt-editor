@@ -23,6 +23,7 @@ export type StyleBlockRenderMapType = {
 
 export type EditorPropsType = {
   isActive?: boolean;
+  isAutoFocus?: boolean;
   state?: RawDraftContentState;
   stateType?: StateTypes;
   onChange?: (blocks: RawDraftContentState) => void;
