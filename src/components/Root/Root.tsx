@@ -5,8 +5,7 @@ import React, {
   Suspense,
 } from 'react';
 
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
+import InputBase from '@mui/material/InputBase';
 
 import type { AppPropsType } from '@/components/App';
 
@@ -18,13 +17,7 @@ const Root: FC<AppPropsType> = (props) => {
   }
 
   return (
-    <Suspense
-      fallback={(
-        <Box sx={{ display: 'flex' }}>
-          <CircularProgress />
-        </Box>
-      )}
-    >
+    <Suspense fallback={(<InputBase />)}>
       <App {...props} />
     </Suspense>
   );
