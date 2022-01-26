@@ -10,6 +10,7 @@ export { Markdown, TagTypes as MarkdownTagTypes } from '@/components/Markdown';
 export type { BlockType } from '@/utils/blocksConverter';
 export type { AppStateType as EditorStateType } from '@/components/App';
 export type { StyleBlockRenderMapType as EditorStyleBlockRenderMapType } from '@/components/Editor';
+export type { BlockConfigType as EditorBlockConfigType } from '@/components/BlockToolbar/hooks/useBlockToolbar';
 export type { BlockRenderMapType as EditorBlockRenderMapType } from '@/components/BlockToolbar/hooks/useBlockToolbar';
 export type { BlockRenderMapType as BlockRendererBlockRenderMapType } from '@/components/BlockRenderer';
 export type { StyleBlockRenderMapType as MarkdownStyleBlockRenderMapType } from '@/components/Markdown';
