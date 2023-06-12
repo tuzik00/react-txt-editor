@@ -2,14 +2,14 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 import {
-  DRAFT_ROOT_CLASSNAME,
-  PLACEHOLDER_HAS_FOCUS_CLASSNAME,
-  PLACEHOLDER_ROOT_CLASSNAME,
+    DRAFT_ROOT_CLASSNAME,
+    PLACEHOLDER_HAS_FOCUS_CLASSNAME,
+    PLACEHOLDER_ROOT_CLASSNAME,
 } from '../constants';
 
 const placeholderStyles = ({
-  isShow = true,
-}: { isShow?: boolean }) => css`
+    isShow = true,
+}: { isShow?: boolean; }) => css`
     & .${DRAFT_ROOT_CLASSNAME} {
         position: relative;
     }
@@ -29,5 +29,5 @@ const placeholderStyles = ({
 `;
 
 export default styled('div')([
-  placeholderStyles,
+    placeholderStyles,
 ]);

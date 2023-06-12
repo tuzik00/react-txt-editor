@@ -1,6 +1,12 @@
 import { addons } from '@storybook/addons';
-import theme from './theme';
 
 addons.setConfig({
-    theme,
+    selectedBarPanel: 'storybook/canvas',
+    toolbar: {
+        zoom: { hidden: true },
+        eject: { hidden: true },
+        copy: { hidden: true },
+        fullscreen: { hidden: true }
+    },
+    enableShortcuts: false
 });

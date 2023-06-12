@@ -1,5 +1,5 @@
 export enum MutabilityTypes {
-  MUTABLE = 'MUTABLE',
-  IMMUTABLE = 'IMMUTABLE',
-  SEGMENTED = 'SEGMENTED',
+    MUTABLE = 'MUTABLE',
+    IMMUTABLE = 'IMMUTABLE',
+    SEGMENTED = 'SEGMENTED',
 }

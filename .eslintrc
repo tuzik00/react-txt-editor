@@ -35,6 +35,13 @@
     ".eslintrc.js"
   ],
   "rules": {
+    "max-len": "off",
+    "import/no-named-as-default": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-promise-executor-return": "off",
+    "func-names": "off",
+    "no-param-reassign": "off",
+    "no-restricted-exports": "off",
     "import/prefer-default-export": "off",
     "import/extensions": ["error", "ignorePackages", {"ts": "never", "tsx": "never"}],
     "@typescript-eslint/no-use-before-define": ["error"],
@@ -50,12 +57,11 @@
     "react/function-component-definition": [2, {"namedComponents": "arrow-function"}],
     "react/jsx-sort-props": ["error", {
       "callbacksLast": true,
-        "shorthandFirst": false,
-        "shorthandLast": false,
-        "ignoreCase": false,
-        "noSortAlphabetically": true,
-        "reservedFirst": true
-      }
-    ]
+      "shorthandFirst": false,
+      "shorthandLast": false,
+      "ignoreCase": false,
+      "noSortAlphabetically": true,
+      "reservedFirst": true
+    }]
   }
 }

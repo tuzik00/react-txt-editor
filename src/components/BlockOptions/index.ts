@@ -1,1 +1,5 @@
-export { default as BlockOptions } from './BlockOptions';
+export { default } from './BlockOptions';
+
+export type {
+    BlockOptionsPropsType,
+} from './types';

@@ -3,10 +3,10 @@
 node_modules/
 build/
 storybook-static/
-.DS_Store
-*.tgz
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /.changelog
 .npm/
+.DS_Store
+*.tgz

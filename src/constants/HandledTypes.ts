@@ -1,4 +1,4 @@
 export enum HandledTypes {
-  HANDLED = 'handled',
-  NOT_HANDLED = 'not-handled',
+    HANDLED = 'handled',
+    NOT_HANDLED = 'not-handled',
 }

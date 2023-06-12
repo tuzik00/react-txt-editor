@@ -1,6 +1,5 @@
-export { default as InlineToolbar } from './InlineToolbar';
-export { useInlineToolbar } from './hooks/useInlineToolbar';
+export { default } from './InlineToolbar';
 
 export type {
-  InlineToolbarPropsType,
+    InlineToolbarPropsType,
 } from './types';

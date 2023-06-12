@@ -1,0 +1,47 @@
+import {
+    Meta,
+    ArgsTable,
+} from '@storybook/addon-docs';
+
+import BlockPopup from '../BlockPopup';
+
+<Meta
+    id="BlockPopup"
+    title="Components/BlockPopup/Api"
+/>
+
+# BlockPopup
+
+Документация по API для компонента BlockPopup
+
+## Import
+
+```typescript
+import { BlockPopup } from '@citilink/content-editor';
+```
+
+## Props
+
+<ArgsTable of={BlockPopup}/>
+
+## Example
+
+```typescript jsx
+import React from 'react';
+import { BlockPopup } from '@citilink/content-editor';
+
+const Component = () => (
+    <BlockPopup
+        isOpen
+        content={(
+            <div>
+                Content
+            </div>
+        )}
+    >
+        Block
+    </BlockPopup>
+);
+
+export default Component;
+```

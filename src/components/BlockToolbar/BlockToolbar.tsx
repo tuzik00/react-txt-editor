@@ -1,120 +1,114 @@
+import type { Ref } from 'react';
+
 import React, {
-  FC,
-  memo,
-  useState,
-  useMemo,
+    memo,
+    useState,
+    useMemo,
+    useEffect,
+    forwardRef,
 } from 'react';
 
 import OutsideClickHandler from 'react-outside-click-handler';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import Tooltip from '@mui/material/Tooltip';
 
-import { Modal, useModal } from '@/components/Modal';
+import {
+    IconAdd,
+    IconSize,
+} from '@/components/Icons';
 
-import type { BlockConfigType } from './hooks/useBlockToolbar/types';
+import { ButtonStyled } from './styled';
 import type { BlockToolbarPropsType } from './types';
 
-const BlockToolbar: FC<BlockToolbarPropsType> = ({
-  onAdd,
-  blocks,
-}) => {
-  const [isOpenToolbar, setOpenToolbar] = useState(false);
+const BlockToolbar = forwardRef<HTMLDivElement, BlockToolbarPropsType>(({
+    onClick = () => {},
+    onToggle = () => {},
+    renderButton = (element) => element,
+    buttons = [],
+}, forwardedRef: Ref<HTMLDivElement>) => {
+    const [isOpenToolbar, setOpenToolbar] = useState(false);
 
-  const [showModal] = useModal<BlockConfigType>(({
-    isOpen,
-    onClose,
-    data,
-  }) => (
-    <Modal
-      isOpen={isOpen}
-      title={data.label}
-      onOutsideClick={onClose}
-    >
-      {data?.setupElement ? data.setupElement({
-        onCreate: (blockData) => {
-          onAdd({
-            type: data.type as string,
-            data: blockData,
-          });
-
-          onClose();
+    useEffect(
+        () => {
+            onToggle(isOpenToolbar);
         },
-        data: {},
-      }) : null}
-    </Modal>
-  ));
+        [
+            isOpenToolbar,
+            onToggle,
+        ],
+    );
 
-  const renderButtons = useMemo(
-    () => (
-      <>
-        <Divider
-          orientation={'vertical'}
-          variant={'middle'}
-          flexItem
-        />
-        {blocks.map((block) => (
-          <Tooltip
-            key={block.type}
-            title={block.label}
-          >
-            <IconButton
-              key={block.type}
-              size={'large'}
-              onClick={() => {
-                if (block?.setupElement) {
-                  showModal({
-                    ...block,
-                  });
-                } else {
-                  onAdd({
-                    type: block.type as string,
-                    data: {},
-                  });
-                }
-              }}
-            >
-              {block.toolbarIcon}
-            </IconButton>
-          </Tooltip>
-        ))}
-      </>
-    ),
-    [
-      blocks,
-      onAdd,
-      showModal,
-    ],
-  );
+    const buttonsList = useMemo(
+        () => buttons.map((button, index) => {
+            const key = `button_${index}`;
 
-  return (
-    <OutsideClickHandler
-      onOutsideClick={() => {
-        setOpenToolbar(false);
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          bgcolor: 'background.paper',
-          border: (theme) => `1px solid ${theme.palette.divider}`,
-          borderRadius: 1,
-        }}
+            return renderButton(
+              <Tooltip
+                key={key}
+                title={button?.title ?? ''}
+              >
+                <ButtonStyled
+                  color={'secondary'}
+                  onClick={() => {
+                            onClick(button);
+                            setOpenToolbar(false);
+                        }}
+                >
+                  {button.label}
+                </ButtonStyled>
+              </Tooltip>,
+                button,
+            );
+        }),
+        [
+            buttons,
+            onClick,
+            renderButton,
+        ],
+    );
+
+    return (
+      <OutsideClickHandler
+        display={'inline'}
+        onOutsideClick={() => {
+                setOpenToolbar(false);
+            }}
       >
-        <IconButton
-          size={'large'}
-          onClick={() => {
-            setOpenToolbar(!isOpenToolbar);
-          }}
+        <Box
+          ref={forwardedRef}
+          sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    bgcolor: 'background.paper',
+                    border: (theme) => `1px solid ${theme.palette.divider}`,
+                    borderRadius: 1,
+                }}
         >
-          <AddCircleOutlineIcon />
-        </IconButton>
-        {isOpenToolbar && renderButtons}
-      </Box>
-    </OutsideClickHandler>
-  );
-};
+          <ButtonStyled
+            isOpen={isOpenToolbar}
+            color={'secondary'}
+            onClick={() => {
+                        setOpenToolbar(!isOpenToolbar);
+                    }}
+          >
+            <IconAdd size={IconSize.M} />
+          </ButtonStyled>
+
+          {isOpenToolbar && (
+            <>
+              <Divider
+                orientation={'vertical'}
+                variant={'middle'}
+                flexItem
+              />
+
+              {buttonsList}
+            </>
+                )}
+        </Box>
+      </OutsideClickHandler>
+    );
+});
 
 export default memo(BlockToolbar);

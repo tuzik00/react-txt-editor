@@ -1,12 +1,9 @@
 import type { ReactElement } from 'react';
 
-export type MenuType = {
-  action: () => void;
-  title: string;
-  icon: ReactElement;
-};
+import type { DropdownItemPropsType } from '@/components/Dropdown';
 
 export type BlockOptionsPropsType = {
-  menuList: MenuType[];
-  children: ReactElement;
+    children: ReactElement;
+    itemsList: DropdownItemPropsType[];
+    isShow?: boolean;
 };

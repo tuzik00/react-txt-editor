@@ -1,36 +1,113 @@
-import type { ReactChildren, ReactElement } from 'react';
-import type { RawDraftContentState } from 'draft-js';
-import { StateTypes } from '@/constants/StateTypes';
+import type {
+    FC,
+    ReactNode,
+    ReactElement,
+} from 'react';
 
 import type {
-  RenderFnType as RenderInlineToolbarFnType,
-  AllowTypes as InlineToolbarAllowTypes,
-} from '@/components/InlineToolbar/hooks/useInlineToolbar/types';
+    RawDraftContentState,
+    EditorState,
+} from 'draft-js';
 
-import type {
-  BlockRenderMapType,
-  RenderFnType as RenderBlockToolbarFnType,
-} from '@/components/BlockToolbar/hooks/useBlockToolbar/types';
+import type { ThemeOptions } from '@mui/material';
 
-export type StyleBlockConfigType = {
-  element: (props: { children: ReactChildren }) => ReactElement;
-  wrapper?: ReactElement;
+import type { EntityTypes } from '@/constants/EntityTypes';
+import type { BlockTypes } from '@/constants/BlockTypes';
+import type { InlineStyleTypes } from '@/constants/InlineStyleTypes';
+
+import type { UseInlineToolbarRenderPropsType } from './hooks/useInlineToolbar';
+import type { UseBlockToolbarRenderPropsType } from './hooks/useBlockToolbar';
+
+export type BlockStyleRenderConfigType<Props = Record<string, unknown>> = {
+    element: (props: { children: ReactNode; } & Props) => ReactElement;
+    wrapper?: ReactElement;
 };
 
-export type StyleBlockRenderMapType = {
-  [key: string]: StyleBlockConfigType;
+export type BlockStyleRenderMapType = {
+    [BlockTypes.UNSTYLED]?: BlockStyleRenderConfigType;
+    [BlockTypes.PARAGRAPH]?: BlockStyleRenderConfigType;
+    [BlockTypes.OL]?: BlockStyleRenderConfigType;
+    [BlockTypes.UL]?: BlockStyleRenderConfigType;
+    [BlockTypes.H1]?: BlockStyleRenderConfigType;
+    [BlockTypes.H2]?: BlockStyleRenderConfigType;
+    [BlockTypes.H3]?: BlockStyleRenderConfigType;
+    [BlockTypes.H4]?: BlockStyleRenderConfigType;
+    [BlockTypes.H5]?: BlockStyleRenderConfigType;
+    [BlockTypes.H6]?: BlockStyleRenderConfigType;
+    [BlockTypes.BLOCKQUOTE]?: BlockStyleRenderConfigType;
+    [BlockTypes.ATOMIC]?: BlockStyleRenderConfigType;
+    [BlockTypes.CONCLUSION]?: BlockStyleRenderConfigType;
+    [BlockTypes.YOUTUBE]?: BlockStyleRenderConfigType;
+    [BlockTypes.IMAGE]?: BlockStyleRenderConfigType;
+    [BlockTypes.HR]?: BlockStyleRenderConfigType;
+};
+
+export type InlineStyleMapType = {
+    [InlineStyleTypes.BOLD]?: Record<string, string | number>;
+    [InlineStyleTypes.ITALIC]?: Record<string, string | number>;
+    [InlineStyleTypes.SUPERSCRIPT]?: Record<string, string | number>;
+    [InlineStyleTypes.STRIKETHROUGH]?: Record<string, string | number>;
+};
+
+export type EntityMapType = {
+    [EntityTypes.DIRECTIVE_LINK]?: FC<{
+        href: string;
+        title: string;
+        classNames: string;
+        id: string;
+        variant: string;
+        children: ReactNode;
+    }>;
+    [EntityTypes.LINK]?: FC<{
+        href: string;
+        title: string;
+        children: ReactNode;
+    }>;
 };
 
 export type EditorPropsType = {
-  isActive?: boolean;
-  isAutoFocus?: boolean;
-  placeholder?: string;
-  state?: RawDraftContentState;
-  stateType?: StateTypes;
-  onChange?: (blocks: RawDraftContentState) => void;
-  inlineToolbarAllowTypes?: InlineToolbarAllowTypes;
-  renderInlineToolbar?: RenderInlineToolbarFnType;
-  renderBlockToolbar?: RenderBlockToolbarFnType;
-  styleBlockRenderMap?: StyleBlockRenderMapType;
-  blockRenderMap?: BlockRenderMapType;
+    isDisabled?: boolean;
+    isAutoFocus?: boolean;
+    maxHeight?: number;
+    isShowBlockToolbar?: boolean;
+    placeholder?: string;
+    content?: RawDraftContentState;
+    onChange?: (blocks: RawDraftContentState) => void;
+    entityMap?: EntityMapType;
+    inlineStyleMap?: InlineStyleMapType;
+    blockStyleRenderMap?: BlockStyleRenderMapType;
+    blockRenderMap?: EditorBlockConfigMapType;
+    inlineToolbarAvailableButtons?: EditorAllowTypes[];
+    theme?: ThemeOptions;
+    renderInlineToolbar?: (props: UseInlineToolbarRenderPropsType) => ReactElement;
+    renderBlockToolbar?: (props: UseBlockToolbarRenderPropsType) => ReactElement;
 };
+
+export type EditorBlockConfigElementPropsType<Data = any, ExtendParams = unknown> = {
+    data: Data;
+    onUpdate: (data: Data) => void;
+    onShowSetupElement: () => void;
+    isDisabled: boolean;
+    setEditorState?: (state: EditorState) => void;
+    editorState?: EditorState;
+} & ExtendParams;
+
+export type EditorBlockConfigSetupElementPropsType<Data = any, ExtendParams = unknown> = {
+    setEditorState?: (state: EditorState) => void;
+    editorState?: EditorState;
+    onCreate: (data: Data) => void;
+    data: Data;
+} & ExtendParams;
+
+export type EditorBlockConfigType = {
+    label: ReactNode;
+    title?: string;
+    element?: FC<EditorBlockConfigElementPropsType>;
+    setupElement?: FC<EditorBlockConfigSetupElementPropsType>;
+};
+
+export type EditorBlockConfigMapType = {
+    [key: string]: EditorBlockConfigType;
+};
+
+export type EditorAllowTypes = EntityTypes | BlockTypes | InlineStyleTypes;

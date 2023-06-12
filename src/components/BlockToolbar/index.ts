@@ -1,6 +1,6 @@
-export { default as BlockToolbar } from './BlockToolbar';
-export { useBlockToolbar } from './hooks/useBlockToolbar';
+export { default } from './BlockToolbar';
 
 export type {
-  BlockToolbarPropsType,
+    BlockToolbarPropsType,
+    BlockToolbarButtonType,
 } from './types';

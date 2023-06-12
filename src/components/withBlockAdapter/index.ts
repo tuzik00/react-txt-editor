@@ -1,1 +1,0 @@
-export { withBlockAdapter } from './withBlockAdapter';

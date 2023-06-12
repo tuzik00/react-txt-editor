@@ -1,0 +1,71 @@
+import {
+    Meta,
+    ArgsTable,
+} from '@storybook/addon-docs';
+
+import InlineToolbar from '../InlineToolbar';
+
+<Meta
+    id="InlineToolbar"
+    title="Components/InlineToolbar/Api"
+/>
+
+# InlineToolbar
+
+Документация по API для компонента InlineToolbar
+
+## Import
+
+```typescript
+import { InlineToolbar } from '@citilink/content-editor';
+```
+
+## Props
+
+<ArgsTable of={InlineToolbar}/>
+
+
+```typescript jsx
+import React from 'react';
+
+import {
+    InlineToolbar,
+    EntityTypes,
+    InlineStyleTypes,
+    BlockTypes,
+} from '@citilink/content-editor';
+
+const Component = () => (
+    <InlineToolbar
+        availableButtons={[
+            BlockTypes.H1,
+            BlockTypes.H2,
+            BlockTypes.H3,
+            BlockTypes.H4,
+            BlockTypes.H5,
+            BlockTypes.H6,
+            BlockTypes.BLOCKQUOTE,
+            BlockTypes.CONCLUSION,
+            BlockTypes.OL,
+            BlockTypes.UL,
+            EntityTypes.LINK,
+            EntityTypes.DIRECTIVE_LINK,
+            InlineStyleTypes.BOLD,
+            InlineStyleTypes.SUPERSCRIPT,
+            InlineStyleTypes.STRIKETHROUGH,
+            InlineStyleTypes.ITALIC,
+        ]}
+        selectedButtons={[
+            BlockTypes.H1,
+            InlineStyleTypes.SUPERSCRIPT,
+            InlineStyleTypes.ITALIC,
+        ]}
+        onToggle={(button) => {
+
+        }}
+    />
+);
+
+export default Component;
+```
+

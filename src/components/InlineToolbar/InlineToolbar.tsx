@@ -1,298 +1,288 @@
+import type { ReactNode } from 'react';
+
 import React, {
-  Fragment,
-  FC,
-  memo,
-  ReactElement,
-  useCallback,
-  useMemo,
-  useState,
+    memo,
+    useState,
+    useCallback,
+    Fragment,
+    forwardRef,
+    useMemo,
 } from 'react';
 
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import TextFieldsIcon from '@mui/icons-material/TextFields';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
+import noop from 'lodash/noop';
+import uniq from 'lodash/uniq';
+import { Tooltip } from '@mui/material';
 
 import { EntityTypes } from '@/constants/EntityTypes';
-import { ActionType } from './hooks/useInlineToolbar/constants';
+import { InlineStyleTypes } from '@/constants/InlineStyleTypes';
+import { BlockTypes } from '@/constants/BlockTypes';
 
-import { configButtons, GroupTypes, URL_REGEXP } from './constants';
+import DividerStyled from './styled/Divider';
+import IconButtonStyled from './styled/IconButton';
+import InlineToolbarContainerStyled from './styled/InlineToolbarContainer';
 
-import type { InlineToolbarPropsType } from './types';
+import { buttonsConfig } from './config';
 
-const urlRegexp = new RegExp(URL_REGEXP, 'i');
+import {
+    SelectionType,
+    RenderType,
+    LIST_MIN_COUNT,
+} from './constants';
 
-const InlineToolbar: FC<InlineToolbarPropsType> = ({
-  onToggle = () => {},
-  selection = [],
-  allowTypes = [],
-}) => {
-  const [isOpenLink, setOpenLink] = useState(false);
-  const [linkUrl, setLinkUrl] = useState('');
+import type {
+    InlineToolbarPropsType,
+    SelectItemType,
+    ConfigItemType,
+    BlockButtonType,
+} from './types';
 
-  const [headingAnchorEl, setHeadingAnchorEl] = React.useState<null | HTMLElement>(null);
-  const isOpenHeading = Boolean(headingAnchorEl);
+import AnchorLink from './AnchorLink';
+import MenuButton from './MenuButton';
 
-  const isValidLintUrl = useMemo(
-    () => linkUrl.length < 2083 && urlRegexp.test(linkUrl),
-    [
-      linkUrl,
+const InlineToolbar = forwardRef<HTMLDivElement, InlineToolbarPropsType>(({
+    selectedButtons,
+    availableButtons = [
+        BlockTypes.H1,
+        BlockTypes.H2,
+        BlockTypes.H3,
+        BlockTypes.H4,
+        BlockTypes.H5,
+        BlockTypes.H6,
+        BlockTypes.BLOCKQUOTE,
+        BlockTypes.CONCLUSION,
+        BlockTypes.OL,
+        BlockTypes.UL,
+        EntityTypes.LINK,
+        InlineStyleTypes.BOLD,
+        InlineStyleTypes.SUPERSCRIPT,
+        InlineStyleTypes.STRIKETHROUGH,
+        InlineStyleTypes.ITALIC,
     ],
-  );
+    onToggle = noop,
+}, ref) => {
+    const [selectedItem, setSelectedItem] = useState<SelectItemType | null>(null);
 
-  const handleShowHeading = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      setHeadingAnchorEl(event.currentTarget);
-    },
-    [],
-  );
+    const disabledButtonTypes = useMemo(
+        () => buttonsConfig
+            .flat()
+            .flatMap((configItem) => {
+                if (configItem.renderType === RenderType.LIST) {
+                    return configItem.buttons;
+                }
 
-  const handleCloseHeading = useCallback(
-    () => {
-      setHeadingAnchorEl(null);
-    },
-    [],
-  );
+                return configItem;
+            })
+            .filter(({ type: blockType }) => selectedButtons.includes(blockType))
+            .reduce<BlockButtonType[]>(
+                (acc, currentItem) => uniq([
+                    ...acc,
+                    ...(currentItem.disabledTypes || []),
+                ]),
+                [],
+            ),
+        [
+            selectedButtons,
+        ],
+    );
 
-  const renderLink = useMemo(
-    () => (
-      <Box sx={{ display: 'flex', m: 1 }}>
-        <IconButton
-          size={'small'}
-          sx={{ mr: 1 }}
-          onClick={() => {
-            setOpenLink(false);
-          }}
-        >
-          <ArrowBackIcon />
-        </IconButton>
-        <TextField
-          fullWidth
-          placeholder={'Введите адрес ссылки'}
-          size={'small'}
-          sx={{ mr: 1 }}
-          autoFocus
-          error={linkUrl.length > 0 && !isValidLintUrl}
-          onChange={(e) => {
-            setLinkUrl(e.target.value);
-          }}
-          onKeyPress={(e) => {
-            if (e.code === 'Enter') {
-              onToggle({
-                actionType: ActionType.ENTITY,
-                type: EntityTypes.LINK,
-                data: { url: linkUrl },
-              });
+    const handleButtonSelect = useCallback(
+        (item: SelectItemType, isActive?: boolean) => {
+            const {
+                type,
+                selectionType,
+                actionType,
+            } = item;
 
-              setOpenLink(false);
+            const isSelectedLink = selectionType && Object.values(SelectionType)
+                .filter((currentItem) => currentItem !== SelectionType.DEFAULT)
+                .includes(selectionType);
+
+            if (isSelectedLink && !isActive) {
+                setSelectedItem(item);
+                return;
             }
-          }}
-        />
-        <IconButton
-          size={'small'}
-          disabled={!isValidLintUrl}
-          onClick={() => {
+
             onToggle({
-              actionType: ActionType.ENTITY,
-              type: EntityTypes.LINK,
-              data: { url: linkUrl },
+                actionType,
+                type,
+            });
+        },
+        [
+            onToggle,
+        ],
+    );
+
+    const handleSingleButtonSelect = useCallback(
+        (item: SelectItemType, isActive?: boolean) => () => handleButtonSelect(item, isActive),
+        [
+            handleButtonSelect,
+        ],
+    );
+
+    const handleLinkSelect = useCallback(
+        (url?: string) => {
+            onToggle({
+                actionType: selectedItem?.actionType,
+                type: selectedItem?.type,
+                data: { url },
             });
 
-            setOpenLink(false);
-          }}
-        >
-          <AddCircleIcon />
-        </IconButton>
-      </Box>
-    ),
-    [
-      isValidLintUrl,
-      linkUrl,
-      onToggle,
-    ],
-  );
+            setSelectedItem(null);
+        },
+        [
+            onToggle,
+            selectedItem,
+        ],
+    );
 
-  const renderButtons = useMemo(
-    () => configButtons.reduce<Array<(ReactElement | null)[]>>((result, item) => {
-      switch (item.group) {
-        case GroupTypes.HEADING: {
-          const menuItems = item.buttons.map((button) => {
-            if (allowTypes.length > 0 && !allowTypes.includes(button.type)) {
-              return null;
+    const handleCustomNodeClose = useCallback(
+        () => {
+            setSelectedItem(null);
+        },
+        [],
+    );
+
+    const renderSingleButton = useCallback(
+        (item: SelectItemType) => {
+            const {
+                type,
+                activeIcon,
+                inactiveIcon,
+                title,
+            } = item;
+
+            const isActive = selectedButtons.includes(type);
+
+            if (availableButtons.length > 0 && !availableButtons.includes(type)) {
+                return null;
             }
 
             return (
-              <MenuItem
-                key={button.type}
-                selected={selection?.includes(button.type)}
-                onClick={() => {
-                  onToggle({
-                    actionType: button.actionType,
-                    type: button.type,
-                  });
-
-                  handleCloseHeading();
-                }}
+              <Tooltip
+                key={type}
+                title={title}
               >
-                {selection.includes(button.type as never)
-                  ? button.activeIcon
-                  : button.inactiveIcon}
-              </MenuItem>
+                <IconButtonStyled
+                  color={isActive ? 'primary' : 'secondary'}
+                  disabled={disabledButtonTypes.includes(type)}
+                  onClick={handleSingleButtonSelect(item, isActive)}
+                >
+                  {isActive ? activeIcon : inactiveIcon}
+                </IconButtonStyled>
+              </Tooltip>
             );
-          }).filter(Boolean);
+        },
+        [
+            availableButtons,
+            disabledButtonTypes,
+            handleSingleButtonSelect,
+            selectedButtons,
+        ],
+    );
 
-          if (menuItems.length === 0) {
-            break;
-          }
-
-          const isActive = item.buttons.some((button) => selection?.includes(button.type));
-
-          result.push([
-            <IconButton
-              key={'heading-button-key'}
-              id={'heading-positioned-button'}
-              color={isActive ? 'primary' : 'default'}
-              aria-controls={isOpenHeading ? 'heading-positioned-menu' : undefined}
-              aria-haspopup={'true'}
-              aria-expanded={isOpenHeading ? 'true' : undefined}
-              size={'small'}
-              sx={{ p: 0 }}
-              onClick={handleShowHeading}
-            >
-              <TextFieldsIcon />
-            </IconButton>,
-            <Menu
-              key={'heading-menu-key'}
-              id={'heading-positioned-menu'}
-              aria-labelledby={'heading-positioned-button'}
-              anchorEl={headingAnchorEl}
-              open={isOpenHeading}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              onClose={handleCloseHeading}
-            >
-              {menuItems}
-            </Menu>,
-          ]);
-
-          break;
-        }
-
-        default: {
-          result.push(item.buttons.map(({
-            inactiveIcon,
-            activeIcon,
-            type,
-            actionType,
-          }, elementIndex) => {
-            const elementKey = `element_${elementIndex}`;
-            const isActive = selection.includes(type as never);
-
-            if (allowTypes.length > 0 && !allowTypes.includes(type)) {
-              return null;
+    const getCustomNode = useCallback(
+        () => {
+            if (!selectedItem) {
+                return null;
             }
 
             return (
-              <IconButton
-                key={elementKey}
-                size={'small'}
-                sx={{ p: 0 }}
-                color={isActive ? 'primary' : 'default'}
-                onClick={() => {
-                  if (item.group === GroupTypes.LINK) {
-                    if (isActive) {
-                      onToggle({
-                        actionType,
-                        type,
-                      });
-                    } else {
-                      setOpenLink(true);
+              <AnchorLink
+                onSelect={handleLinkSelect}
+                onClose={handleCustomNodeClose}
+              />
+            );
+        },
+        [
+            selectedItem,
+            handleLinkSelect,
+            handleCustomNodeClose,
+        ],
+    );
+
+    const renderButton = useCallback(
+        (item: ConfigItemType, index: number): ReactNode => {
+            const buttonKey = `button_key_${index}`;
+
+            switch (item.renderType) {
+                case RenderType.LIST: {
+                    const avaliableBlockButtons = item.buttons
+                        .filter(
+                            (button) => (
+                                availableButtons.length > 0
+                                && availableButtons.includes(button.type)
+                            ),
+                        );
+
+                    if (avaliableBlockButtons.length === 0) {
+                        return null;
                     }
-                  } else {
-                    onToggle({
-                      actionType,
-                      type,
-                    });
-                  }
-                }}
-              >
-                {isActive ? activeIcon : inactiveIcon}
-              </IconButton>
+
+                    if (avaliableBlockButtons.length <= LIST_MIN_COUNT) {
+                        return (
+                          <>
+                            {avaliableBlockButtons.map(renderSingleButton)}
+                          </>
+                        );
+                    }
+
+                    return (
+                      <MenuButton
+                        key={buttonKey}
+                        item={item}
+                        availableButtons={availableButtons}
+                        selectedButtons={selectedButtons}
+                        onSelect={handleButtonSelect}
+                      />
+                    );
+                }
+
+                default: {
+                    return renderSingleButton(item);
+                }
+            }
+        },
+        [
+            availableButtons,
+            handleButtonSelect,
+            renderSingleButton,
+            selectedButtons,
+        ],
+    );
+
+    const buttonsNode = buttonsConfig
+        .map((buttons) => buttons.map(renderButton).filter(Boolean))
+        .filter((buttons) => buttons.length > 0)
+        .map((buttons, index, resultMenuButtons) => {
+            const groupKey = `group_${index}`;
+            const isRenderDivider = index < resultMenuButtons.length - 1;
+
+            return (
+              <Fragment key={groupKey}>
+                {buttons}
+
+                {isRenderDivider && (
+                <DividerStyled
+                  flexItem
+                  variant={'middle'}
+                  orientation={'vertical'}
+                />
+                    )}
+              </Fragment>
             );
-          }).filter(Boolean));
+        });
 
-          break;
-        }
-      }
-
-      return result;
-    }, []),
-    [
-      allowTypes,
-      handleCloseHeading,
-      handleShowHeading,
-      headingAnchorEl,
-      isOpenHeading,
-      onToggle,
-      selection,
-    ],
-  );
-
-  return (
-    <Box
-      sx={{
-        width: 'fit-content',
-        bgcolor: 'background.paper',
-        border: (theme) => `1px solid ${theme.palette.divider}`,
-        borderRadius: 1,
-      }}
-    >
-      {isOpenLink
-        ? renderLink
-        : (
-          <Box
-            sx={{
-              display: 'flex',
-              color: 'text.secondary',
-              '& svg': {
-                m: 1.5,
-              },
-              '& hr': {
-                mx: 0.5,
-              },
-            }}
-          >
-            {renderButtons.map((buttons, buttonsIndex) => {
-              const groupKey = `group_${buttonsIndex}`;
-
-              return (
-                <Fragment key={groupKey}>
-                  {buttons}
-                  {buttons.length > 0 && buttonsIndex + 1 < renderButtons.length && (
-                    <Divider
-                      orientation={'vertical'}
-                      variant={'middle'}
-                      flexItem
-                    />
-                  )}
-                </Fragment>
-              );
-            })}
-          </Box>
-        )}
-    </Box>
-  );
-};
+    return (
+      <InlineToolbarContainerStyled
+        ref={ref}
+        direction={'row'}
+        columnGap={'1'}
+      >
+        {selectedItem
+                ? getCustomNode()
+                : buttonsNode}
+      </InlineToolbarContainerStyled>
+    );
+});
 
 export default memo(InlineToolbar);

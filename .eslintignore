@@ -1,4 +1,4 @@
-..husky/
+.husky/
 .storybook/
 node_modules/
 storybook-static/
