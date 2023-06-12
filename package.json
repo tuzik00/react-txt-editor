@@ -1,7 +1,7 @@
 {
   "name": "react-txt-editor",
   "description": "React content editor",
-  "version": "1.0.23",
+  "version": "1.0.25",
   "license": "MIT",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -14,7 +14,11 @@
   "scripts": {
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -o storybook-static",
-    "build": "ttsc --incremental",
+    "build:clean": "rimraf build",
+    "build:ts": "ttsc",
+    "build:copy": "copyfiles -u 1 ./src/assets/**/* ./build",
+    "build:alias": "tsc-alias -p tsconfig.json",
+    "build": "run-s build:*",
     "lint": "eslint \"./src/**/*.{ts,tsx}\"",
     "tsc": "tsc --noEmit",
     "prepare": "husky install",
