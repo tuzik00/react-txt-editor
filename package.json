@@ -1,7 +1,7 @@
 {
   "name": "react-txt-editor",
   "description": "React content editor",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "license": "MIT",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -71,7 +71,7 @@
   "devDependencies": {
     "@emotion/babel-plugin": "^11.10.2",
     "@storybook/addon-actions": "^6.5.10",
-    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-essentials": "^7.0.0",
     "@storybook/addon-links": "^6.5.10",
     "@storybook/addons": "^6.5.10",
     "@storybook/builder-webpack5": "^6.5.10",
