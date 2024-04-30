@@ -58,11 +58,11 @@ const withContentAdapter: WithContentAdapterFnType = (Component) => {
                     const blocks = draftToBlocks(rawState, contentType, blockRenderMap);
 
                     if (contentType === 'md') {
-                        onChange(getMdContent(blocks), getHeadings(rawState));
+                        onChange(getMdContent(blocks), getHeadings(rawState), rawState);
                         return;
                     }
 
-                    onChange(blocks, getHeadings(rawState));
+                    onChange(blocks, getHeadings(rawState), rawState);
                 } catch (e) {
                     // eslint-disable-next-line no-console
                     console.warn(e);

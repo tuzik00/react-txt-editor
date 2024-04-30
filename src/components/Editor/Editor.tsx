@@ -194,7 +194,6 @@ export const Editor: FC<EditorPropsType> = ({
         (newEditorState: EditorState) => {
             toggleHasBlock(newEditorState);
             setEditorState(newEditorState);
-
             if (onChange) {
                 const currentContent = newEditorState.getCurrentContent();
                 onChange(convertToRaw(currentContent));
