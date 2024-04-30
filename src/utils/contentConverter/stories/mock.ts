@@ -58,11 +58,11 @@ export default `
 
 ## Ссылки
 
-[Обычная ссылка](https://citilink.ru/)
+[Обычная ссылка](https://google.com/)
 
-[Ссылка с заголовком](https://citilink.ru/ "title text!")
+[Ссылка с заголовком](https://google.com/ "title text!")
 
-:link[Расширенная ссылка с параметрами]{title="title text!" href="https://citilink.ru/" classNames="class1 class2" id="link" variant="base"}
+:link[Расширенная ссылка с параметрами]{title="title text!" href="https://google.com/" classNames="class1 class2" id="link" variant="base"}
 
 
 ## Картинка

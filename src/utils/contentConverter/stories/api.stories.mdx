@@ -17,7 +17,7 @@ import {
 import {
     blocksToDraft,
     draftToBlocks,
-} from '@citilink/content-editor';
+} from 'react-text-editor';
 ```
 
 ## Example
@@ -25,7 +25,7 @@ import {
 **Переводит из формата редактора в формат draftjs**
 
 ```typescript
-import { blocksToDraft } from '@citilink/content-editor';
+import { blocksToDraft } from 'react-txt-editor';
 
 blocksToDraft([
     {
@@ -40,7 +40,7 @@ blocksToDraft([
 **Переводит из формата draftjs в формат редактора**
 
 ```typescript
-import { draftToBlocks } from '@citilink/content-editor';
+import { draftToBlocks } from 'react-txt-editor';
 
 draftToBlocks({ blocks: [], entityMap: {} });
 ```
@@ -107,11 +107,11 @@ draftToBlocks({ blocks: [], entityMap: {} });
 
 ## Ссылки
 
-[Обычная ссылка](https://citilink.ru/)
+[Обычная ссылка](https://google.com/)
 
-[Ссылка с заголовком](https://citilink.ru/ "title text!")
+[Ссылка с заголовком](https://google.com/ "title text!")
 
-:link[Расширенная ссылка с параметрами]{title="title text!" href="https://citilink.ru/" classNames="class1 class2" id="link" variant="base"}
+:link[Расширенная ссылка с параметрами]{title="title text!" href="https://google.com/" classNames="class1 class2" id="link" variant="base"}
 
 
 ## Картинка

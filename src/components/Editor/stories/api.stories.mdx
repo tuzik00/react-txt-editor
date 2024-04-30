@@ -33,7 +33,7 @@ export const ObjectToListString = (obj) => Object
 ## Import
 
 ```typescript
-import { Editor } from '@citilink/content-editor';
+import { Editor } from 'react-txt-editor';
 ```
 
 
@@ -57,11 +57,11 @@ import {
     InlineStyleTypes,
     BlockTypes,
     getCustomBlockRenderMap,
-} from '@citilink/content-editor';
+} from 'react-txt-editor';
 
 import type {
     EditorContentType
-} from '@citilink/content-editor';
+} from 'react-txt-editor';
 
 const Component = () => {
     const [content, setContent] = useState<EditorContentType>('');
@@ -236,12 +236,12 @@ SetupElement не обязательный, и в случае с простым
 ```typescript jsx
 import type { FC } from 'react';
 
-import { BlockMenu } from '@citilink/content-editor';
+import { BlockMenu } from 'react-txt-editor';
 
 import type {
     EditorBlockConfigSetupElementPropsType,
     EditorBlockConfigElementPropsType,
-} from '@citilink/content-editor';
+} from 'react-txt-editor';
 
 interface CustomBlockDataType {
     text: string;
@@ -291,13 +291,13 @@ const Element: FC<EditorBlockConfigElementPropsType<CustomBlockDataType>> = ({
 Тут подключаем комонент, определяем заголовок и иконку/тестовое название блока
 
 ```typescript jsx
-import { BlockIcon } from '@citilink/uikit/icons';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
 import { SetupElement } from './SetupElement';
 import { Element } from './Element'
 
 export default {
     title: 'Новый блок',
-    label: <BlockIcon />,
+    label: <AcUnitIcon />,
     setupElement: SetupElement,
     element: Element,
 }
@@ -306,7 +306,7 @@ export default {
 #### Подключание к редактору
 
 ```typescript jsx
-import { Editor } from '@citilink/content-editor';
+import { Editor } from 'react-txt-editor';
 
 import { BlockTypes } from './BlockTypes';
 import customBlock from './blocks/CustomBlock';
