@@ -171,29 +171,34 @@ const Demo: FC = () => {
             </FormLabel>
 
             <FormGroup row>
-              {buttons.map((item) => (
-                <FormControlLabel
-                  value={item}
-                  control={(
-                    <Checkbox
-                      defaultChecked
-                      onChange={(e, isChecked) => {
-                                            setInlineToolbarAvailableButtons((items) => {
-                                                if (!isChecked) {
-                                                    return items.filter((i) => i !== item);
-                                                }
+              {buttons.map((item, index) => {
+                  const key = `controll_${index}`;
 
-                                                return [
-                                                    ...items,
-                                                    item,
-                                                ];
-                                            });
-                                        }}
+                  return (
+                    <FormControlLabel
+                      key={key}
+                      value={item}
+                      control={(
+                        <Checkbox
+                          defaultChecked
+                          onChange={(e, isChecked) => {
+                                  setInlineToolbarAvailableButtons((items) => {
+                                      if (!isChecked) {
+                                          return items.filter((i) => i !== item);
+                                      }
+
+                                      return [
+                                          ...items,
+                                          item,
+                                      ];
+                                  });
+                              }}
+                        />
+                      )}
+                      label={item}
                     />
-                                )}
-                  label={item}
-                />
-                        ))}
+              );
+              })}
             </FormGroup>
           </FormControl>
         </Box>

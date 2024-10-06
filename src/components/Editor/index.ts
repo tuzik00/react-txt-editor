@@ -23,4 +23,5 @@ export type {
     BlockStyleRenderMapType,
     InlineStyleMapType,
     EntityMapType,
+    RawContentStateType,
 } from './types';

@@ -143,7 +143,7 @@ const InlineToolbar = forwardRef<HTMLDivElement, InlineToolbarPropsType>(({
     );
 
     const renderSingleButton = useCallback(
-        (item: SelectItemType) => {
+        (item: SelectItemType, index: number) => {
             const {
                 type,
                 activeIcon,
@@ -159,7 +159,7 @@ const InlineToolbar = forwardRef<HTMLDivElement, InlineToolbarPropsType>(({
 
             return (
               <Tooltip
-                key={type}
+                key={`${type}_${index}`}
                 title={title}
               >
                 <IconButtonStyled
@@ -220,9 +220,9 @@ const InlineToolbar = forwardRef<HTMLDivElement, InlineToolbarPropsType>(({
 
                     if (avaliableBlockButtons.length <= LIST_MIN_COUNT) {
                         return (
-                          <>
+                          <Fragment key={buttonKey}>
                             {avaliableBlockButtons.map(renderSingleButton)}
-                          </>
+                          </Fragment>
                         );
                     }
 
@@ -238,7 +238,7 @@ const InlineToolbar = forwardRef<HTMLDivElement, InlineToolbarPropsType>(({
                 }
 
                 default: {
-                    return renderSingleButton(item);
+                    return renderSingleButton(item, 123);
                 }
             }
         },

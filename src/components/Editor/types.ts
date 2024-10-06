@@ -111,3 +111,4 @@ export type EditorBlockConfigMapType = {
 };
 
 export type EditorAllowTypes = EntityTypes | BlockTypes | InlineStyleTypes;
+export type RawContentStateType = RawDraftContentState;
