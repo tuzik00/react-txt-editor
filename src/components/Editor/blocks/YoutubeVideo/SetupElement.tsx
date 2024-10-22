@@ -7,10 +7,11 @@ import React, {
 import Box from '@mui/material/Box';
 
 import type { EditorBlockConfigSetupElementPropsType } from '../..';
-import type { ElementPropsType } from './types';
+import type { ElementDataType } from './types';
+
 import YoutubeSelect from './YoutubeSelect';
 
-const SetupElement: FC<EditorBlockConfigSetupElementPropsType<ElementPropsType>> = ({
+const SetupElement: FC<EditorBlockConfigSetupElementPropsType<ElementDataType>> = ({
     data,
     onCreate,
 }) => {
@@ -18,6 +19,7 @@ const SetupElement: FC<EditorBlockConfigSetupElementPropsType<ElementPropsType>>
         (youtubeId: string) => {
             onCreate({
                 id: youtubeId,
+                title: '',
             });
         },
         [

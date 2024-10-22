@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 
 import React, {
-    useMemo,
     useState,
     useCallback,
 } from 'react';
@@ -11,17 +10,17 @@ import Box from '@mui/material/Box';
 import { IconReplace } from '@/components/Icons';
 import ContextMenu from '@/components/ContextMenu';
 
+import TextField from '@mui/material/TextField';
 import type { EditorBlockConfigElementPropsType } from '../..';
 
 import YoutubeSelect from './YoutubeSelect';
-import { VideoWrapperStyled } from './styled';
 
 import type {
-    ElementPropsType,
-    ExtendElementPropsType,
+    ElementType,
+    ElementDataType,
 } from './types';
 
-const Element: FC<EditorBlockConfigElementPropsType<ElementPropsType, ExtendElementPropsType>> = ({
+const Element: FC<EditorBlockConfigElementPropsType<ElementDataType, ElementType>> = ({
     data,
     onUpdate,
     isDisabled,
@@ -35,36 +34,11 @@ const Element: FC<EditorBlockConfigElementPropsType<ElementPropsType, ExtendElem
 
             onUpdate({
                 id: youtubeId,
+                title: '',
             });
         },
         [
             onUpdate,
-        ],
-    );
-
-    const videoNode = useMemo(
-        () => {
-            if (!renderYoutubeVideo) {
-                return (
-                  <VideoWrapperStyled>
-                    <iframe
-                      allowFullScreen
-                      width={'100%'}
-                      height={'100%'}
-                      src={`https://www.youtube.com/embed/${data.id}`}
-                      title={'youtube video'}
-                      frameBorder={'0'}
-                      allow={'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'}
-                    />
-                  </VideoWrapperStyled>
-                );
-            }
-
-            return renderYoutubeVideo(data);
-        },
-        [
-            data,
-            renderYoutubeVideo,
         ],
     );
 
@@ -85,14 +59,29 @@ const Element: FC<EditorBlockConfigElementPropsType<ElementPropsType, ExtendElem
         <ContextMenu
           isShow={!isDisabled}
           itemsList={[
-                    {
-                        title: 'Заменить',
-                        icon: <IconReplace />,
-                        action: () => { setVisible(true); },
-                    },
-                ]}
+            {
+                title: 'Заменить',
+                icon: <IconReplace />,
+                action: () => { setVisible(true); },
+            },
+        ]}
         >
-          {videoNode}
+          <>
+            {renderYoutubeVideo(data)}
+            <TextField
+              type={'text'}
+              variant={'outlined'}
+              size={'small'}
+              placeholder={'Описание'}
+              fullWidth
+              onChange={(e) => {
+                        onUpdate({
+                            ...data,
+                            title: e.target.value,
+                        });
+                    }}
+            />
+          </>
         </ContextMenu>
       </Box>
     );

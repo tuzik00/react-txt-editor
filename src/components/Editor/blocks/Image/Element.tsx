@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
 import React, {
-    useMemo,
     useState,
     useCallback,
 } from 'react';
 
 import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import isEmpty from 'lodash/isEmpty';
 
 import { IconReplace } from '@/components/Icons';
@@ -15,19 +15,14 @@ import ContextMenu from '@/components/ContextMenu';
 
 import type { EditorBlockConfigElementPropsType } from '../..';
 
-import {
-    ImageStyled,
-    ImageContainerStyled,
-} from './styled';
-
 import ImageUploader from './ImageUploader';
 
 import type {
-    ElementPropsType,
-    ExtendElementPropsType,
+    ElementDataType,
+    ElementType,
 } from './types';
 
-const Element: FC<EditorBlockConfigElementPropsType<ElementPropsType, ExtendElementPropsType>> = ({
+const Element: FC<EditorBlockConfigElementPropsType<ElementDataType, ElementType>> = ({
     data,
     onUpdate,
     isDisabled,
@@ -42,41 +37,15 @@ const Element: FC<EditorBlockConfigElementPropsType<ElementPropsType, ExtendElem
                 return;
             }
 
-            const imageSrc = await onUploadImage(file);
+            const uploadResult = await onUploadImage(file);
 
-            onUpdate({
-                src: imageSrc,
-                alt: '',
-                title: '',
-            });
+            onUpdate(uploadResult);
 
             setVisible(false);
         },
         [
             onUpdate,
             onUploadImage,
-        ],
-    );
-
-    const imageNode = useMemo(
-        () => {
-            if (!renderImage) {
-                return (
-                  <ImageContainerStyled>
-                    <ImageStyled
-                      src={data.src}
-                      alt={data.alt}
-                      title={data.title}
-                    />
-                  </ImageContainerStyled>
-                );
-            }
-
-            return renderImage(data);
-        },
-        [
-            data,
-            renderImage,
         ],
     );
 
@@ -100,7 +69,22 @@ const Element: FC<EditorBlockConfigElementPropsType<ElementPropsType, ExtendElem
             },
         ]}
         >
-          {imageNode}
+          <>
+            {renderImage(data)}
+            <TextField
+              type={'text'}
+              variant={'outlined'}
+              size={'small'}
+              placeholder={'Описание'}
+              fullWidth
+              onChange={(e) => {
+                onUpdate({
+                    ...data,
+                    alt: e.target.value,
+                });
+            }}
+            />
+          </>
         </ContextMenu>
       </Box>
     );

@@ -1,12 +1,8 @@
 import type { ReactElement } from 'react';
 
-export type ElementPropsType = {
-    src: string;
-    alt: string;
-    title: string;
-};
+export type ElementDataType = Record<string, unknown>;
 
-export interface ExtendElementPropsType {
-    onUploadImage: (file: File) => Promise<string>;
-    renderImage?: (props: ElementPropsType) => ReactElement;
+export interface ElementType {
+    onUploadImage: (file: File) => Promise<ElementDataType>;
+    renderImage: (props: ElementDataType) => ReactElement;
 }

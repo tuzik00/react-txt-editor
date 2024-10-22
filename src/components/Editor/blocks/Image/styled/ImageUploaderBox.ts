@@ -9,15 +9,10 @@ export interface ImageUploaderBoxStyledPropsType {
 
 const getDefaultStyles = ({ theme }: ImageUploaderBoxStyledPropsType) => css`
     position: relative;
-    max-width: 500px;
-    height: 195px;
+    height: 395px;
     width: 100%;
     border-radius: 23px;
     background-color: ${theme?.palette?.grey?.[200]};
-
-    ${theme?.breakpoints?.up?.('tablet')} {
-        height: 268px;
-    }
 `;
 
 const getDragEnterStyles = ({

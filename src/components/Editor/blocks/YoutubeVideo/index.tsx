@@ -1,4 +1,3 @@
-import type { ReactElement } from 'react';
 import React from 'react';
 
 import {
@@ -14,19 +13,17 @@ import type {
 import SetupElement from './SetupElement';
 import Element from './Element';
 
-import type { ElementPropsType } from './types';
+import type { ElementType, ElementDataType } from './types';
 
-export interface YoutubeVideoRootPropsType {
-    renderYoutubeVideo?: (props: ElementPropsType) => ReactElement;
-}
+export type { ElementType, ElementDataType };
 
 export default ({
     renderYoutubeVideo,
-}: YoutubeVideoRootPropsType): EditorBlockConfigType => ({
+}: ElementType): EditorBlockConfigType => ({
     title: 'Видео с Youtube',
     label: <IconYoutube size={IconSize.M} />,
     setupElement: SetupElement,
-    element: (props: EditorBlockConfigElementPropsType<ElementPropsType>) => (
+    element: (props: EditorBlockConfigElementPropsType<ElementDataType>) => (
       <Element
         renderYoutubeVideo={renderYoutubeVideo}
         {...props}

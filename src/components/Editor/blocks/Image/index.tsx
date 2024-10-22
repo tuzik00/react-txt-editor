@@ -1,5 +1,4 @@
 import React from 'react';
-import type { ReactElement } from 'react';
 
 import type {
     EditorBlockConfigElementPropsType,
@@ -12,20 +11,17 @@ import {
 } from '@/components/Icons';
 
 import Element from './Element';
-import type { ElementPropsType } from './types';
+import type { ElementType, ElementDataType } from './types';
 
-export interface ImageRootPropsType {
-    onUploadImage: (file: File) => Promise<string>;
-    renderImage?: (props: ElementPropsType) => ReactElement;
-}
+export type { ElementType, ElementDataType };
 
 export default ({
     onUploadImage,
     renderImage,
-}: ImageRootPropsType): EditorBlockConfigType => ({
+}: ElementType): EditorBlockConfigType => ({
     title: 'Картинка',
     label: <IconImg size={IconSize.M} />,
-    element: (props: EditorBlockConfigElementPropsType<ElementPropsType>) => (
+    element: (props: EditorBlockConfigElementPropsType<ElementDataType>) => (
       <Element
         renderImage={renderImage}
         onUploadImage={onUploadImage}

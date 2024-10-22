@@ -1,9 +1,10 @@
 import type { ReactElement } from 'react';
 
-export type ElementPropsType = {
+export type ElementDataType = {
     id: string;
+    title: string;
 };
 
-export interface ExtendElementPropsType {
-    renderYoutubeVideo?: (props: ElementPropsType) => ReactElement;
+export interface ElementType {
+    renderYoutubeVideo: (props: ElementDataType) => ReactElement;
 }

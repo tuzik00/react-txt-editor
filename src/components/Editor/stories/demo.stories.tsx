@@ -2,7 +2,6 @@ import type { FC } from 'react';
 
 import React, {
     useState,
-    useCallback,
     useMemo,
 } from 'react';
 
@@ -55,21 +54,28 @@ const Demo: FC = () => {
     const [isShowContentView, setIsShowContentView] = useState(true);
     const [inlineToolbarAvailableButtons, setInlineToolbarAvailableButtons] = useState(buttons);
 
-    const handleImageUpload = useCallback(
-        async () => {
-            await new Promise((res) => setTimeout(res, 1000));
-
-            return 'https://i.gifer.com/origin/00/00289d97d27522697379257e77162cc8.gif';
-        },
-        [],
-    );
-
     const customBlocks = useMemo(
         () => (
             showDefaultBlocks
                 ? {
                     ...getCustomBlockRenderMap({
-                        onUploadImage: handleImageUpload,
+                        onUploadImage: async () => {
+                            await new Promise((res) => setTimeout(res, 1000));
+                            return {
+                                url: 'https://i.gifer.com/origin/00/00289d97d27522697379257e77162cc8.gif',
+                            };
+                        },
+                        renderImage: (data) => (
+                          <img src={data.url as string} alt={data.alt as string} />
+                        ),
+                        renderYoutubeVideo: (data) => (
+                          <iframe
+                            title={data.title as string}
+                            src={`https://www.youtube.com/embed/${data.id}`}
+                            allow={'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'}
+                            allowFullScreen
+                          />
+                        ),
                     }),
                     customBlock,
                 }
@@ -77,7 +83,6 @@ const Demo: FC = () => {
         ),
         [
             showDefaultBlocks,
-            handleImageUpload,
         ],
     );
 

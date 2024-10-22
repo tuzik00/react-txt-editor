@@ -12,10 +12,9 @@ import React, {
 } from 'react';
 
 import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 import { useEditor } from '@/components/Editor/hooks/useEditor';
-
-import { InputStyled } from './styled';
 
 interface YoutubeSelectPropsType {
     defaultYoutubeId: string;
@@ -59,7 +58,6 @@ const YoutubeSelect: FC<YoutubeSelectPropsType> = ({
     const handleInputChange = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
             const currentInputValue = e.target.value;
-
             const youtubeId = getYouTubeId(currentInputValue);
 
             if (!youtubeId) {
@@ -95,11 +93,14 @@ const YoutubeSelect: FC<YoutubeSelectPropsType> = ({
         alignItems={'center'}
         sx={{ height: 34 }}
       >
-        <InputStyled
-          hasError={hasError}
+        <TextField
           placeholder={'Введите ссылку на видео с YouTube'}
+          autoFocus
+          size={'small'}
+          fullWidth
+          error={hasError}
           defaultValue={url}
-          onKeyPress={handleEnterKeyPress}
+          onKeyDown={handleEnterKeyPress}
           onChange={handleInputChange}
         />
       </Box>
