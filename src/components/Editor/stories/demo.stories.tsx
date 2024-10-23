@@ -66,11 +66,16 @@ const Demo: FC = () => {
                             };
                         },
                         renderImage: (data) => (
-                          <img src={data.url as string} alt={data.alt as string} />
+                          <img
+                            style={{ width: '100%' }}
+                            src={data.url as string}
+                            alt={data.alt as string}
+                          />
                         ),
                         renderYoutubeVideo: (data) => (
                           <iframe
                             title={data.title as string}
+                            style={{ width: '999px', maxWidth: '100%', height: '400px' }}
                             src={`https://www.youtube.com/embed/${data.id}`}
                             allow={'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'}
                             allowFullScreen
