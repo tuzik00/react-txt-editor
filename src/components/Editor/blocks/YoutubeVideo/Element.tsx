@@ -70,9 +70,9 @@ const Element: FC<EditorBlockConfigElementPropsType<ElementDataType, ElementType
             {renderYoutubeVideo(data)}
             <TextField
               type={'text'}
-              variant={'outlined'}
+              variant={'standard'}
               size={'small'}
-              placeholder={'Описание'}
+              placeholder={'Добавьте описание'}
               fullWidth
               onChange={(e) => {
                         onUpdate({

@@ -73,9 +73,9 @@ const Element: FC<EditorBlockConfigElementPropsType<ElementDataType, ElementType
             {renderImage(data)}
             <TextField
               type={'text'}
-              variant={'outlined'}
+              variant={'standard'}
               size={'small'}
-              placeholder={'Описание'}
+              placeholder={'Добавьте описание'}
               fullWidth
               onChange={(e) => {
                 onUpdate({
