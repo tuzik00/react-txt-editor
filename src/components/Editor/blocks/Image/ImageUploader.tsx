@@ -69,7 +69,7 @@ const ImageUploader: FC<ImageUploaderPropsType> = ({
           </ImageWrapperStyled>
 
           <MessageStyled>
-            {'Нажмите на область, чтобы загрузить фото либо перетащите файл'}
+            {'Нажмите на область, чтобы загрузить фото'}
           </MessageStyled>
         </ContentWrapperStyled>
 

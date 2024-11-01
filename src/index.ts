@@ -13,9 +13,6 @@ export * from '@/components/BlockOptions';
 export { default as ContextMenu } from '@/components/ContextMenu';
 export * from '@/components/ContextMenu';
 
-export { default as BlockPopup } from '@/components/BlockPopup';
-export * from '@/components/BlockPopup';
-
 export * from '@/utils/contentConverter';
 
 export * from '@/constants/EntityTypes';

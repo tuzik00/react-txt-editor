@@ -222,7 +222,7 @@ const Demo: FC = () => {
               isAutoFocus
               isDisabled={isDisabled}
               placeholder={placeholder}
-              contentType={contentType as WithContentAdapterPropsType['contentType']}
+              contentType={'blocks'}
               content={content}
               blockRenderMap={customBlocks}
               inlineToolbarAvailableButtons={inlineToolbarAvailableButtons}

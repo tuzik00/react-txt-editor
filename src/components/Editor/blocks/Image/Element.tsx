@@ -77,6 +77,7 @@ const Element: FC<EditorBlockConfigElementPropsType<ElementDataType, ElementType
               size={'small'}
               placeholder={'Добавьте описание'}
               fullWidth
+              defaultValue={data.alt}
               onChange={(e) => {
                 onUpdate({
                     ...data,
