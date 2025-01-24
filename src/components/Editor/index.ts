@@ -9,6 +9,7 @@ export { useEditor } from './hooks/useEditor';
 
 export { default as ImageBlock } from './blocks/Image';
 export { default as YoutubeVideo } from './blocks/YoutubeVideo';
+export { default as RutubeVideo } from './blocks/RutubeVideo';
 
 export type { EditorContentType } from './hocs/withContentAdapter';
 
