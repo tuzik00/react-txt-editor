@@ -26,8 +26,8 @@ export function getRuTubeId(url: string): string {
     return arr.length > 2 ? arr[2].split(/[^\w-]/i)[0] : '';
 }
 
-function generateYoutubeUrl(youtubeId: string): string {
-    return `https://www.youtube.com/watch?v=${youtubeId}`;
+function generateYoutubeUrl(rutubeId: string): string {
+    return `https://rutube.ru/video/${rutubeId}/`;
 }
 
 const RutubeSelect: FC<YoutubeSelectPropsType> = ({
