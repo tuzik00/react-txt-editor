@@ -9,6 +9,7 @@ export { default as IconLink } from './IconLink';
 export { default as IconNumericList } from './IconNumericList';
 export { default as IconOrderedList } from './IconOrderedList';
 export { default as IconYoutube } from './IconYoutube';
+export { default as IconRutube } from './IconRutube';
 export { default as IconBold } from './IconBold';
 export { default as IconStrike } from './IconStrike';
 export { default as IconItalic } from './IconItalic';

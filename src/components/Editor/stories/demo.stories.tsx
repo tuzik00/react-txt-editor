@@ -20,7 +20,6 @@ import { EntityTypes } from '@/constants/EntityTypes';
 import { InlineStyleTypes } from '@/constants/InlineStyleTypes';
 import type { ContentSchemaType } from '@/utils/contentConverter';
 
-import type { WithContentAdapterPropsType } from '../hocs/withContentAdapter';
 import Editor, { getCustomBlockRenderMap } from '..';
 
 import customBlock from './blocks/CustomBlock';
@@ -77,6 +76,15 @@ const Demo: FC = () => {
                             title={data.title as string}
                             style={{ width: '999px', maxWidth: '100%', height: '400px' }}
                             src={`https://www.youtube.com/embed/${data.id}`}
+                            allow={'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'}
+                            allowFullScreen
+                          />
+                        ),
+                        renderRutubeVideo: (data) => (
+                          <iframe
+                            title={data.title as string}
+                            style={{ width: '999px', maxWidth: '100%', height: '400px' }}
+                            src={`https://rutube.ru/play/embed/${data.id}`}
                             allow={'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'}
                             allowFullScreen
                           />

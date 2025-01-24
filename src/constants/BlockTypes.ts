@@ -13,6 +13,7 @@ export enum BlockTypes {
     ATOMIC = 'atomic',
     CONCLUSION = 'conclusion',
     YOUTUBE = 'youtube',
+    RUTUBE = 'rutube',
     IMAGE = 'image',
     HR = 'hr',
 }
